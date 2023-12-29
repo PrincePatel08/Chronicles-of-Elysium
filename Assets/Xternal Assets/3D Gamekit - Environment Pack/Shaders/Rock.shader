@@ -24,7 +24,7 @@ Shader "Custom/Rock" {
 
     }
     SubShader {
-        Tags { "RenderType"="TransparentCutout" "Queue"="AlphaTest" }
+        Tags { "RenderType"="TransparentCutout" "Queue"="AlphaTest"}
         LOD 200
         
         CGPROGRAM
