@@ -12,7 +12,11 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
+
+		[Header("Abilities Input Values")]
 		public bool showAbilities;
+		public bool mouseLeftClick;
+		public bool mouseRightClick;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -49,6 +53,16 @@ namespace StarterAssets
         {
             ShowAbilitiesInput(value.isPressed);
         }
+
+		public void OnMouseLeft(InputValue value)
+		{
+			MouseLeftInput(value.isPressed);
+        }
+
+		public void OnMouseRight(InputValue value)
+		{
+			MouseRightInput(value.isPressed);
+		}
 #endif
 
 
@@ -76,6 +90,16 @@ namespace StarterAssets
 			showAbilities = newShowAbilitiesState;
 			cursorInputForLook = !newShowAbilitiesState;
 		}
+
+		public void MouseLeftInput(bool newMouseLeftState)
+		{
+            mouseLeftClick = newMouseLeftState;
+        }
+
+		public void MouseRightInput(bool newMouseRightState)
+		{
+            mouseRightClick = newMouseRightState;
+        }
 		
 		private void OnApplicationFocus(bool hasFocus)
 		{
