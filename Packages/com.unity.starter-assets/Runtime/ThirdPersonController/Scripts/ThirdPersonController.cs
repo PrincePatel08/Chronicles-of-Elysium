@@ -15,6 +15,10 @@ namespace StarterAssets
     public class ThirdPersonController : MonoBehaviour
     {
         [Header("Player")]
+        [Tooltip("Is Player doing something")]
+        public bool IsBusy = false;
+
+        [Space(10)]
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
 
@@ -155,7 +159,6 @@ namespace StarterAssets
         private void Update()
         {
             _hasAnimator = TryGetComponent(out _animator);
-
             JumpAndGravity();
             GroundedCheck();
             Move();
@@ -213,6 +216,9 @@ namespace StarterAssets
 
         private void Move()
         {
+            if(IsBusy)
+                return;
+
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 
