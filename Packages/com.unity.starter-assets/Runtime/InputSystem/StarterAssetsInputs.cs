@@ -7,6 +7,8 @@ namespace StarterAssets
 {
 	public class StarterAssetsInputs : MonoBehaviour
 	{
+		[HideInInspector] public ThirdPersonController characterController;
+
 		[Header("Character Input Values")]
 		public Vector2 move;
 		public Vector2 look;
@@ -28,40 +30,58 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM
 		public void OnMove(InputValue value)
 		{
-			MoveInput(value.Get<Vector2>());
+            if (characterController.IsBusy)
+                move = Vector2.zero;
+			else
+				move = value.Get<Vector2>();
 		}
 
 		public void OnLook(InputValue value)
 		{
 			if(cursorInputForLook)
 			{
-				LookInput(value.Get<Vector2>());
+				look = value.Get<Vector2>();
 			}
 		}
 
 		public void OnJump(InputValue value)
 		{
-			JumpInput(value.isPressed);
+			if(characterController.IsBusy)
+                jump = false;
+			else
+				jump = value.isPressed;
 		}
 
 		public void OnSprint(InputValue value)
 		{
-			SprintInput(value.isPressed);
+			if (characterController.IsBusy)
+                sprint = false;
+            else
+                sprint = value.isPressed;
 		}
 
         public void OnShowAbilities(InputValue value)
         {
-            ShowAbilitiesInput(value.isPressed);
+            if (characterController.IsBusy)
+                showAbilities = false;
+            else
+				showAbilities = value.isPressed;
         }
 
 		public void OnMouseLeft(InputValue value)
 		{
-			MouseLeftInput(value.isPressed);
+            if (characterController.IsBusy)
+                mouseLeftClick = false;
+			else
+				mouseLeftClick = value.isPressed;
         }
 
 		public void OnMouseRight(InputValue value)
 		{
-			MouseRightInput(value.isPressed);
+            if (characterController.IsBusy)
+                mouseRightClick = false;
+			else
+				mouseRightClick = value.isPressed;
 		}
 #endif
 
@@ -85,21 +105,6 @@ namespace StarterAssets
 		{
 			sprint = newSprintState;
 		}
-		public void ShowAbilitiesInput(bool newShowAbilitiesState)
-		{
-			showAbilities = newShowAbilitiesState;
-			cursorInputForLook = !newShowAbilitiesState;
-		}
-
-		public void MouseLeftInput(bool newMouseLeftState)
-		{
-            mouseLeftClick = newMouseLeftState;
-        }
-
-		public void MouseRightInput(bool newMouseRightState)
-		{
-            mouseRightClick = newMouseRightState;
-        }
 		
 		private void OnApplicationFocus(bool hasFocus)
 		{

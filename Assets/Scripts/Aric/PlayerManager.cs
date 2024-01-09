@@ -10,7 +10,6 @@ namespace PrincePatel
         private ThirdPersonController controller;
         private Animator animator;
         private StarterAssetsInputs inputs;
-        
 
         private void Awake()
         {
@@ -27,6 +26,9 @@ namespace PrincePatel
 
         private void Update()
         {
+            if(controller.IsBusy)
+                return;
+
             if(inputs.mouseLeftClick)
                 Attack1();
             else if(inputs.mouseRightClick)
